@@ -19,6 +19,10 @@ namespace WebApplication
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(options =>
+                {
+                    options.UseSystemd();
+                })
                 .UseStartup<Startup>()
                 .Build();
     }

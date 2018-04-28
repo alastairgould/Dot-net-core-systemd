@@ -4,12 +4,15 @@ After=network-online.target firewalld.service
 Wants=network-online.target
 
 [Service]
-Type=notify
+Type=simple
 # the default is not to use systemd for cgroups because the delegate issues still
 # exists and systemd currently does not support the cgroup feature set required
 # for containers run by docker
-ExecStart=/opt/WebApplication
+ExecStart=/opt/WebApplication/WebApplication
 ExecReload=/bin/kill -s HUP $MAINPID
+WorkingDirectory=/opt/WebApplication
+Environment=ASPNETCORE_ENVIRONMENT=Production
+SyslogIdentifier=webapplication
 # Having non-zero Limit*s causes performance problems due to accounting overhead
 # in the kernel. We recommend using cgroups to do container-local accounting.
 LimitNOFILE=infinity

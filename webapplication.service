@@ -1,6 +1,6 @@
 [Unit]
 # Description of the service
-Description=ASP.NET Core Web Applicationi
+Description=ASP.NET Core Web Application
 
 # When this service should be started up
 After=network-online.target firewalld.service
@@ -15,13 +15,13 @@ Type=simple
 # for containers run by docker
 
 # How to start the application
-ExecStart=/opt/WebApplication/WebApplication
+ExecStart=/opt/dotnet-core-systemd/WebApplication
 
 # How to stop the application
 ExecReload=/bin/kill -s HUP $MAINPID
 
 # Sets the working directory
-WorkingDirectory=/opt/WebApplication
+WorkingDirectory=/opt/dotnet-core-systemd
 
 # Sets enviroment variable
 Environment=ASPNETCORE_ENVIRONMENT=Production

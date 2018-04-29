@@ -9,10 +9,11 @@ After=network-online.target firewalld.service
 Wants=network-online.target
 
 [Service]
+# Configures the process start-up type for this service unit. One of simple, forking, oneshot, dbus, notify or idle.
+# Simple means that its a simple executable
+# Forking means that executable will fork another process then exist straight away. Common for linux daemons
+# Notify is the same simple but the executable is aware of systemd and will send notifcations to systemd alerting to the current state I.e Finished starting up
 Type=simple
-# the default is not to use systemd for cgroups because the delegate issues still
-# exists and systemd currently does not support the cgroup feature set required
-# for containers run by docker
 
 # How to start the application
 ExecStart=/opt/dotnet-core-systemd/WebApplication

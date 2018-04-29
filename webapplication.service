@@ -42,8 +42,8 @@ StartLimitInterval=60s
 
 # Control cpu and memory usage using cgroups. Uses the same technology as containers. Can also control things like IO usage if you want and others
 
-# CPUQuota=20%
-# MemoryLimit=1G
+CPUQuota=20%
+MemoryLimit=1G
 
 [Install]
 WantedBy=multi-user.target

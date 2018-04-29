@@ -40,8 +40,7 @@ Restart=always
 StartLimitBurst=3
 StartLimitInterval=60s
 
-# Control cpu and memory usage using cgroups. Uses the same technology 
-# as containers. Can also control things like IO usage if you want and others
+# Control cpu and memory usage using cgroups. Uses the same technology as containers. Can also control things like IO usage if you want and others
 
 # CPUQuota=20%
 # MemoryLimit=1G

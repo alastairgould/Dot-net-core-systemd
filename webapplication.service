@@ -18,7 +18,7 @@ Type=simple
 # How to start the application
 ExecStart=/opt/dotnet-core-systemd/WebApplication
 
-# How to stop the application
+# How to trigger a configuration reload in the service
 ExecReload=/bin/kill -s HUP $MAINPID
 
 # Sets the working directory

@@ -1,6 +1,11 @@
 [Unit]
-Description=ASP.NET Core Web Application
+# Description of the service
+Description=ASP.NET Core Web Applicationi
+
+# When this service should be started up
 After=network-online.target firewalld.service
+
+# Is dependent on this target
 Wants=network-online.target
 
 [Service]
@@ -8,28 +13,37 @@ Type=simple
 # the default is not to use systemd for cgroups because the delegate issues still
 # exists and systemd currently does not support the cgroup feature set required
 # for containers run by docker
+
+# How to start the application
 ExecStart=/opt/WebApplication/WebApplication
+
+# How to stop the application
 ExecReload=/bin/kill -s HUP $MAINPID
+
+# Sets the working directory
 WorkingDirectory=/opt/WebApplication
+
+# Sets enviroment variable
 Environment=ASPNETCORE_ENVIRONMENT=Production
+
+# All logs emited by this application with identifier by webapplication in the syslogs
 SyslogIdentifier=webapplication
-# Having non-zero Limit*s causes performance problems due to accounting overhead
-# in the kernel. We recommend using cgroups to do container-local accounting.
-LimitNOFILE=infinity
-LimitNPROC=infinity
-LimitCORE=infinity
-# Uncomment TasksMax if your systemd version supports it.
-# Only systemd 226 and above support this version.
-TasksMax=infinity
-TimeoutStartSec=0
-# set delegate yes so that systemd does not reset the cgroups of docker containers
-Delegate=yes
-# kill only the docker process, not all processes in the cgroup
-KillMode=process
-# restart the docker process if it exits prematurely
-Restart=on-failure
+
+# The time given to wait for startup. If it is takes longer than this then it is shutdown and retries
+TimeoutStartSec=60
+
+# Always restart the proccess either if the process cleanly exists, abnormally exits or hits a timeout
+# Can only start 3 times within 60 seconds
+
+Restart=always
 StartLimitBurst=3
 StartLimitInterval=60s
+
+# Control cpu and memory usage using cgroups. Uses the same technology 
+# as containers. Can also control things like IO usage if you want and others
+
+# CPUQuota=20%
+# MemoryLimit=1G
 
 [Install]
 WantedBy=multi-user.target

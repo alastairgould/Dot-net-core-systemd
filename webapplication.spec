@@ -23,7 +23,6 @@ An example webapplication to show how you can package applications as an RPM
 %setup 
 
 %build
-echo "$PWD"
 dotnet publish WebApplication/WebApplication.csproj -c Release
 
 %install

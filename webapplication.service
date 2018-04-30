@@ -24,7 +24,7 @@ ExecReload=/bin/kill -s HUP $MAINPID
 # Sets the working directory
 WorkingDirectory=/opt/dotnet-core-systemd
 
-# Sets enviroment variable
+# Sets enviroment variable. Can use EnvironmentFile for more complicated setups
 Environment=ASPNETCORE_ENVIRONMENT=Production
 
 # All logs emited by this application with identifier by webapplication in the syslogs

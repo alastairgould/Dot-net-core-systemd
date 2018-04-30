@@ -13,6 +13,7 @@ License:       MIT
 Source0:       https://github.com/alastairgould/dotnet-core-systemd/archive/0.1.tar.gz 
 Source1:       webapplication.service 
 # BuildRequires: rh-dotnet20
+# Requires: somepackage >= 0.5.0 - How to do dependencies
 Autoreq: 0
 
 %description

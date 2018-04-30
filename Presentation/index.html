@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>systemd</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h3>Running .NET Applications on Linux using systemd</h3>
+				</section>
+				<section>
+					<h3>What is SystemD?</h3>
+					<blockquote>
+						“systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system." - freedesktop.org
+					</blockquote>
+				</section>
+
+				<section>
+					<h3>Not the first</h3>
+					<p>systemd was originally designed as a replacement for SysVInit.</p>
+					<p>Allowing for faster booting, better power management and easier to maintain boot configuration.</p>
+				</section>
+				<section>
+					<p>As of 2018, the majority of Linux distributions have adopted systemd as their default init system. There are still
+					niche systems that use SysVInit.</p>
+				</section>
+				<section>
+					<h3>Unit Files</h3>
+					<p>Unit files describe the desired system state for a Linux system for systemd. The main types of unit files are: </p>
+					<ul>
+						<li>service (Important for us)</li>
+						<li>target</li>
+						<li>mount</li>
+						<li>timer</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Service Unit File</h3>
+					<p>A configuration file that tells systemd about a process you want to run on the system. </p>
+					<p>Processes started by systemd will be controlled and supervised allowing for automatic restarts on failure, starting of dependencies, and resource usage controls.</p>
+				</section>
+				<section>
+					<h3>Simple Service Unit File</h3>
+					<pre><code data-trim data-noescape>
+					[Unit]
+					Description=OpenSSH Daemon
+					After=network.target
+
+					[Service]
+					ExecStartPre=/usr/sbin/sshd-gen-keys-start
+					ExecStart=/usr/sbin/sshd
+					ExecReload=/bin/kill -HUP $MAINPID
+					EnvironmentFile=/etc/sysconfig/ssh
+					Restart=always
+					MemoryLimit=1G
+
+					[Install]
+					WantedBy=multi-user.target
+					</code></pre>
+				</section>
+				<section>
+					<h3>Target Unit File</h3>
+					<p>Target unit files describe a desired system state. I.E Specific process running, mount points activated, network on etc...</p>
+					<p>They do this by referencing other unit files such as service unit files.</p>
+				</section>
+
+				<section>
+					<h3></h3>
+					<p>Once the kernel has passed control to systemd, systemd will then try to to get to the default target state. Common targets are:</p>
+					<ul>
+						<li>single-user.target</li>
+						<li>multi-user.target (Often default on servers)</li>
+						<li>graphical.target</li>
+						<li>rescue.target</li>
+						<li>emergency.target</li>
+					</ul>
+				</section>
+				<section>
+					<p>If you want your service to be automatically started by systemd, it must be added to a target.</p>
+				</section>
+				<section>
+					<h3>Unit File Locations</h3>
+					<p>In order of precedence.</p>
+					<p>/lib/systemd/system </p>
+					<p>/usr/lib/systemd/system</p>
+					<p>/etc/systemd/system</p>
+				</section>
+				<section>
+					<p>If you want to override or customise a unit file, do it in /etc/systemd/system as it won't be overridden by the package manager.</p>
+				</section>
+				<section>
+					<h3>Basic systemd commands</h3>
+					<pre><code data-trim data-noescape>
+						systemctl // List all loaded unit files
+						systemctl start [servicename]   // Start a service
+						systemctl stop [servicename]    // Stop a service
+						systemctl enable [servicename]  // Adds the service to the target described in the service file. Commonly enables on startup
+						systemctl disable [servicename] // Removes the service from the target. Commonly disables on startup
+						systemctl status [servicename]  // Show stats about the service, Started? failed? Resource usage, Last log output
+					</code></pre>
+				</section>
+                <section>
+					<h2>DEMO TIME</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

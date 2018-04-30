@@ -5,7 +5,7 @@
 Name:          dotnet-core-systemd 
 Version:       0.1
 Release:       1%{?dist}
-Summary:       A example webapplication
+Summary:       An Example Web Application
 Group:         Web Application
 
 URL:           https://github.com/alastairgould/dotnet-core-systemd 

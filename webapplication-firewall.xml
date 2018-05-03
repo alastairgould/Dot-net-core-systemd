@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>ASP.NET Core Web Application</short>
+  <description>ASP.NET Core Web Application</description>
+  <port protocol="tcp" port="5000"/>
+</service>

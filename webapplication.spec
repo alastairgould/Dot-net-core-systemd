@@ -12,8 +12,13 @@ URL:           https://github.com/alastairgould/dotnet-core-systemd
 License:       MIT
 Source0:       https://github.com/alastairgould/dotnet-core-systemd/archive/0.1.tar.gz 
 Source1:       webapplication.service 
-# BuildRequires: rh-dotnet20
+Source2:       webapplication-firewall.xml 
+#BuildRequires: rh-dotnet20
+%{?systemd_requires}
+BuildRequires: systemd
 # Requires: somepackage >= 0.5.0 - How to do dependencies
+Requires: firewalld-filesystem
+Requires(post): firewalld-filesystem
 Autoreq: 0
 
 %description
@@ -28,10 +33,29 @@ dotnet publish WebApplication/WebApplication.csproj -c Release
 %install
 mkdir -p %{buildroot}/%{_opt}/%{name}
 cp -a WebApplication/bin/Release/netcoreapp2.0/rhel.7.4-x64/publish/. %{buildroot}/%{_opt}/%{name}/
+
 chmod 755 %{buildroot}/%{_opt}/%{name}
-mkdir -p % %{buildroot}/usr/lib/systemd/system/
-cp %{SOURCE1} %{buildroot}/usr/lib/systemd/system/
+
+mkdir -p % %{buildroot}/%{_unitdir}
+cp %{SOURCE1} %{buildroot}/%{_unitdir}
+
+mkdir -p % %{buildroot}/%{_prefix}/lib/firewalld/services/
+cp %{SOURCE2} %{buildroot}/%{_prefix}/lib/firewalld/services/
 
 %files
 /%{_opt}/%{name}/
-/usr/lib/systemd/system/
+/%{_unitdir}
+/%{_prefix}/lib/firewalld/services/
+
+%post
+%firewalld_reload
+systemctl enable webapplication.service
+systemctl start webapplication.service
+firewall-cmd --zone=public --permanent --add-service=webapplication-firewall
+%firewalld_reload
+
+%preun
+%systemd_preun webapplication.service
+
+%postun
+%systemd_postun_with_restart webapplication.service

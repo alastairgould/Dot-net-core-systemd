@@ -26,6 +26,7 @@ WorkingDirectory=/opt/dotnet-core-systemd
 
 # Sets enviroment variable. Can use EnvironmentFile for more complicated setups
 Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://*:5000
 
 # All logs emited by this application with identifier by webapplication in the syslogs
 SyslogIdentifier=webapplication

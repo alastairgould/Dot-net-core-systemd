@@ -19,6 +19,7 @@ BuildRequires: systemd
 # Requires: somepackage >= 0.5.0 - How to do dependencies
 Requires: firewalld-filesystem
 Requires(post): firewalld-filesystem
+Requires(postun): firewalld-filesystem
 Autoreq: 0
 
 %description
@@ -58,4 +59,6 @@ firewall-cmd --zone=public --permanent --add-service=webapplication-firewall
 %systemd_preun webapplication.service
 
 %postun
+firewall-cmd --zone=public --permanent --remove-service=webapplication-firewall
+%firewalld_reload
 %systemd_postun_with_restart webapplication.service

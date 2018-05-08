@@ -17,8 +17,10 @@ Explain you have also setup firewalld rules, by copying another file
 Don't want to copy all these files manually, so i've created package using a spec file(*similar nuspec)
 Remove manual copy
 
-Show spec file, create rpm and install, run, and show status in systemctl .
+Show spec file, create rpm and install, run, and show status in systemctl.
 Explain and dicuss package manager
+Explain its installed the app, installed firewall rules, started the app automatically
+Show /opt/
 Show app running
 
 Show webapplication process id using  ps -e

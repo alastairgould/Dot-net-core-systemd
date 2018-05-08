@@ -13,6 +13,8 @@ Do a manual copy of service file and and app
 Run the app via systemctl start
 Show app status using systemctl status, point out memory limit 
 
+Explain you have also setup firewalld rules, by copying another file
+Don't want to copy all these files manually, so i've created package using a spec file(*similar nuspec)
 Remove manual copy
 
 Show spec file, create rpm and install, run, and show status in systemctl .

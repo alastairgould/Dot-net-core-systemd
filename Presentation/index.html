@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -45,11 +45,11 @@
 				</section>
 				<section>
 					<h3>Unit Files</h3>
-					<p>Unit files describe the desired system state for a Linux system for systemd. The main types of unit files are: </p>
+					<p>Unit files describe the desired system state for a Linux system using systemd. The main types of unit files are: </p>
 					<ul>
 						<li>service (Important for us)</li>
-						<li>target</li>
 						<li>mount</li>
+						<li>target</li>
 						<li>timer</li>
 					</ul>
 				</section>
@@ -85,7 +85,7 @@
 
 				<section>
 					<h3></h3>
-					<p>Once the kernel has passed control to systemd, systemd will then try to to get to the default target state. Common targets are:</p>
+					<p>Once the kernel has passed control to systemd during boot, systemd will then try to to get to the default target state. Common targets are:</p>
 					<ul>
 						<li>single-user.target</li>
 						<li>multi-user.target (Often default on servers)</li>

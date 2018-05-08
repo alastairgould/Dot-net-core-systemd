@@ -18,6 +18,9 @@ Show spec file, create rpm and install, run, and show status in systemctl .
 Explain and dicuss package manager
 Show app running
 
+
+
+
 Show webapplication process id using  ps -e
 kill the app
 Show new restarted process id with ps -e to show systemd restarted it

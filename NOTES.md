@@ -23,7 +23,7 @@ Show webapplication process id using  ps -e
 kill the app
 Show new restarted process id with ps -e to show systemd restarted it
 
-Show the folder /etc/systemd/system/multi-user+target.wantedby
+Show the folder /etc/systemd/system/multi-user.target.wantedby
 Enable the application permently using systemctl enable
 show the symlink in the wanted by folder
 Disable the app using systemctl disable

@@ -16,6 +16,7 @@ Remove manual copy
 
 Show spec file, create rpm and install, run, and show status in systemctl .
 Explain and dicuss package manager
+Show app running
 
 Show webapplication process id using  ps -e
 kill the app

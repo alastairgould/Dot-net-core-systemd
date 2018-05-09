@@ -9,15 +9,11 @@ Explain sample app
 Walk through service file
 explain the Wantedby tag in the spec file
 
-Do a manual copy of service file and and app
-Run the app via systemctl start
-Show app status using systemctl status, point out memory limit 
-
 Explain you have also setup firewall rules by copying another file to the firewall services folder
 Don't want to copy all these files manually, so i've created package using a spec file(*similar nuspec)
 Remove manual copy
 
-Show spec file, create rpm and install, run, and show status in systemctl.
+Show spec file, create rpm and install, run, and show status in systemctl, stop service using systemctl.
 Explain and dicuss package manager
 Explain its installed the app, installed firewall rules, started the app automatically
 Show /opt/
